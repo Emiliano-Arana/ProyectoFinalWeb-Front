@@ -1,0 +1,74 @@
+<div class="container mt-5">
+  <!-- Botón de Regresar -->
+  <div class="d-flex justify-content-between mb-4">
+    <a routerLink="/gardens" class="btn btn-primary">Regresar</a>
+  </div>
+
+  <h2>Deja tu Opinión</h2>
+  <form (ngSubmit)="submitOpinion()" #opinionForm="ngForm">
+    <!-- Título -->
+    <div class="mb-3">
+      <label for="title" class="form-label">Título</label>
+      <input
+        type="text"
+        id="title"
+        class="form-control"
+        name="title"
+        [(ngModel)]="opinion.title"
+        required
+        maxlength="100"
+        placeholder="Escribe un título para tu opinión"
+        #titleInput="ngModel"
+      />
+      <div *ngIf="titleInput.invalid && titleInput.touched" class="text-danger">
+        <small *ngIf="titleInput.errors?.['required']">El título es obligatorio.</small>
+        <small *ngIf="titleInput.errors?.['maxlength']">El título no puede superar los 100 caracteres.</small>
+      </div>
+    </div>
+
+    <!-- Contenido -->
+    <div class="mb-3">
+      <label for="content" class="form-label">Contenido</label>
+      <textarea
+        id="content"
+        class="form-control"
+        name="content"
+        [(ngModel)]="opinion.content"
+        required
+        maxlength="500"
+        placeholder="Escribe tu opinión"
+        rows="4"
+        #contentInput="ngModel"
+      ></textarea>
+      <div *ngIf="contentInput.invalid && contentInput.touched" class="text-danger">
+        <small *ngIf="contentInput.errors?.['required']">El contenido es obligatorio.</small>
+        <small *ngIf="contentInput.errors?.['maxlength']">El contenido no puede superar los 500 caracteres.</small>
+      </div>
+    </div>
+
+    <!-- Puntaje -->
+    <div class="mb-3">
+      <label for="score" class="form-label">Puntaje</label>
+      <select
+        id="score"
+        class="form-select"
+        name="score"
+        [(ngModel)]="opinion.score"
+        required
+        #scoreInput="ngModel"
+      >
+        <option [value]="1">1 - Malo</option>
+        <option [value]="2">2 - Regular</option>
+        <option [value]="3">3 - Bueno</option>
+        <option [value]="4">4 - Muy Bueno</option>
+        <option [value]="5">5 - Excelente</option>
+      </select>
+      <div *ngIf="scoreInput.invalid && scoreInput.touched" class="text-danger">
+        <small *ngIf="scoreInput.errors?.['required']">El puntaje es obligatorio.</small>
+      </div>
+    </div>
+
+    <!-- Botón Enviar -->
+    <button type="submit" class="btn btn-success" [disabled]="!opinionForm.valid">Enviar Opinión</button>
+  </form>
+</div>

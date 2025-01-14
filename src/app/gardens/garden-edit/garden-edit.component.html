@@ -1,0 +1,117 @@
+<div class="container mt-5">
+
+  <div class="d-flex justify-content-between mb-4">
+    <a routerLink="/gardens" class="btn btn-primary">Regresar</a>
+    <a [routerLink]="['add-harvest']" class="btn btn-secondary">Agregar Cosecha</a>
+  </div>
+
+  <h1>Editar Huerto</h1>
+  
+  <form class="mb-5" (ngSubmit)="onSubmit()" #gardenForm="ngForm">
+
+    <div class="form-group mb-3">
+      <label for="name" class="form-label">Nombre del Huerto:</label>
+      <input
+        type="text"
+        id="name"
+        [(ngModel)]="name"
+        name="name"
+        class="form-control"
+        placeholder="Nombre del huerto"
+        required
+      />
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="description" class="form-label">Descripción:</label>
+      <textarea
+        id="description"
+        [(ngModel)]="description"
+        name="description"
+        class="form-control"
+        placeholder="Descripción del huerto"
+        required
+        rows="4"
+      ></textarea>
+    </div>
+
+    <div id="map" style="height: 300px; margin-top: 20px; background-color: #e0e0e0;"></div>
+
+    <hr>
+
+    <h2>Productos</h2>
+    <div class="form-group mb-3">
+      <label for="product-select" class="form-label">Seleccionar Producto:</label>
+      <select
+        id="product-select"
+        [(ngModel)]="selectedProduct"
+        name="selectedProduct"
+        class="form-control"
+      >
+        <option *ngFor="let product of availableProducts" [ngValue]="product">
+          {{ product.name }}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="stock" class="form-label">Stock:</label>
+      <input
+        type="number"
+        id="stock"
+        [(ngModel)]="stock"
+        name="stock"
+        class="form-control"
+        min="1"
+        placeholder="Cantidad"
+      />
+    </div>
+
+    <button
+      type="button"
+      class="btn btn-primary mb-4"
+      (click)="addProduct()"
+      [disabled]="!selectedProduct || stock < 1"
+    >
+      Agregar Producto
+    </button>
+
+    <table class="table table-striped mb-4">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Stock</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of gardenProducts">
+          <td>{{ p.producto.name }}</td>
+          <td>
+            <input
+              id="stockP"
+              name="p{{p.idGardenProduct}}"
+              type="number"
+              [(ngModel)]="p.stock"
+              (change)="updateProductStock(p, p.stock)"
+              class="form-control"
+              min="1"
+            />
+          </td>
+          <td>
+            <button
+              class="btn btn-danger"
+              (click)="removeProduct(p.idGardenProduct)"
+            >
+              Eliminar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button type="submit" class="btn btn-success" [disabled]="!gardenForm.valid">
+      Guardar Cambios
+    </button>
+  </form>
+</div>

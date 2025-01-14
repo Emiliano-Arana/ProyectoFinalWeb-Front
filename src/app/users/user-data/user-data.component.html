@@ -1,0 +1,76 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header text-center">
+            <h4>Perfil de Usuario</h4>
+          </div>
+          <div class="card-body">
+            <form (ngSubmit)="onSubmit()">
+              <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input 
+                  type="text" 
+                  class="form-control" 
+                  id="nombre" 
+                  placeholder="Ingresa tu nombre" 
+                  [(ngModel)]="nombre" 
+                  name="nombre" 
+                  required />
+              </div>
+              <div class="mb-3">
+                <label for="apellidos" class="form-label">Apellidos</label>
+                <input 
+                  type="text" 
+                  class="form-control" 
+                  id="apellidos" 
+                  placeholder="Ingresa tus apellidos" 
+                  [(ngModel)]="apellidos" 
+                  name="apellidos" 
+                  required />
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Correo Electrónico</label>
+                <input 
+                  type="email" 
+                  class="form-control" 
+                  id="email" 
+                  placeholder="Ingresa tu correo" 
+                  [(ngModel)]="email" 
+                  name="email" 
+                  required />
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">Contraseña Actual</label>
+                <input 
+                  type="password" 
+                  class="form-control" 
+                  id="password" 
+                  placeholder="Ingresa tu contraseña" 
+                  [(ngModel)]="password" 
+                  name="password" />
+              </div>
+              <div class="mb-3">
+                <label for="confirmPassword" class="form-label">Nueva Contraseña</label>
+                <input 
+                  type="password" 
+                  class="form-control" 
+                  id="confirmPassword" 
+                  placeholder="Crea una Contraseña" 
+                  [(ngModel)]="confirmPassword" 
+                  name="confirmPassword" />
+              </div>
+              <button type="submit" class="btn btn-success w-100">Guardar Cambios</button>
+            </form>
+            <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+              {{ errorMessage }}
+            </div>
+          </div>
+          <div class="card-footer text-center">
+            <button class="btn btn-danger w-100" (click)="logout()">Cerrar Sesión</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,60 @@
+<div class="container mt-5">
+    <!-- Botón de Regresar -->
+    <div class="d-flex justify-content-between mb-4">
+      <a routerLink="/gardens" class="btn btn-primary">Regresar</a>
+    </div>
+  
+    <h1>Crear Cosecha</h1>
+  
+    <form class="mb-5" (ngSubmit)="onSubmit()" #harvestForm="ngForm">
+      <!-- Campo de Tipo -->
+      <div class="form-group mb-3">
+        <label for="type" class="form-label">Tipo de Cosecha:</label>
+        <input
+          type="text"
+          id="type"
+          [(ngModel)]="harvestType"
+          name="harvestType"
+          class="form-control"
+          placeholder="Frutas, Verduras, etc."
+          required
+          maxlength="50"
+          #typeInput="ngModel"
+        />
+        <div *ngIf="typeInput.invalid && typeInput.touched" class="text-danger">
+          <small *ngIf="typeInput.errors?.['required']">El tipo de cosecha es obligatorio.</small>
+          <small *ngIf="typeInput.errors?.['maxlength']">El tipo de cosecha no puede superar los 50 caracteres.</small>
+        </div>
+      </div>
+  
+      <!-- Campo de Cantidad -->
+      <div class="form-group mb-3">
+        <label for="quantity" class="form-label">Cantidad Cosechada:</label>
+        <input
+          type="number"
+          id="quantity"
+          [(ngModel)]="quantity"
+          name="quantity"
+          class="form-control"
+          placeholder="Cantidad"
+          min="1"
+          required
+          #quantityInput="ngModel"
+        />
+        <div *ngIf="quantityInput.invalid && quantityInput.touched" class="text-danger">
+          <small *ngIf="quantityInput.errors?.['required']">La cantidad es obligatoria.</small>
+          <small *ngIf="quantityInput.errors?.['min']">La cantidad debe ser al menos 1.</small>
+        </div>
+      </div>
+  
+      <!-- Botón para Guardar la Cosecha -->
+      <button
+        type="submit"
+        class="btn btn-success"
+        [disabled]="!harvestForm.valid"
+      >
+        Guardar Cosecha
+      </button>
+    </form>
+  </div>
+  
